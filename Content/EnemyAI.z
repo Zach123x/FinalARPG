@@ -1,0 +1,29 @@
+class EnemyAI : ZilchComponent
+{
+    var Relative : Real3 = Real3(0,0,0);
+    var Direction : Real3 = Real3(0,0,0);
+    var Speed : Real = 0.25;
+    var Distance : Real = 0;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        
+        this.Relative = Math.Normalize(this.Space.FindObjectByName("Player").Transform.Translation - this.Owner.Transform.Translation);
+        this.Distance = (this.Owner.Transform.Translation.X - this.Space.FindObjectByName("Player").Transform.Translation.X)^2 + (this.Owner.Transform.Translation.Z - this.Space.FindObjectByName("Player").Transform.Translation.Z)^2;
+        if(this.Distance > 4)
+        {
+        this.Direction = Math.Normalize(this.Relative) * this.Speed;
+        }
+        else
+        {
+            this.Direction = Real3(0,0,0);
+        }
+        var movement = this.Owner.Transform.Translation + this.Direction;
+        this.Owner.Transform.Translation = movement;
+
+    }
+}

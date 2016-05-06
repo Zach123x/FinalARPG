@@ -1,0 +1,18 @@
+DataContent = 
+{
+	DataBuilder = 
+	{
+		string Name = "ConcreteTileOctagonal",
+		uint64 ResourceId = 531c57acd2a21f44,
+		string LoaderType = "Material",
+		uint Version = 0,
+		bool ShowInEditor = true,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"HighResTextures",
+		],
+	},
+},

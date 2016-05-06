@@ -1,0 +1,18 @@
+DataContent = 
+{
+	DataBuilder = 
+	{
+		string Name = "Panels",
+		uint64 ResourceId = 531c526d3bd21665,
+		string LoaderType = "Material",
+		uint Version = 0,
+		bool ShowInEditor = true,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"HighResTextures",
+		],
+	},
+},

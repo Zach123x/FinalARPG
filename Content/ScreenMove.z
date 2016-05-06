@@ -1,0 +1,62 @@
+class ScreenMove : ZilchComponent
+{
+    var ScreenPos : Real3 = Real3(0,0,0);
+    var PreviousPlayerPos : Real3 = Real3(0,0,0);
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        
+        if(this.Owner.CameraLock.Lock == true)
+        {
+            var startPos = Real3(this.Space.FindObjectByName("Player").Transform.Translation.X ,this.Owner.Transform.Translation.Y,this.Space.FindObjectByName("Player").Transform.Translation.Z + 87.5);
+            //startPos = Real3(0,82.5,87.5);
+            var newVectorX = this.Space.FindObjectByName("Player").Transform.Translation.X - this.PreviousPlayerPos.X;
+            var newVectorZ = this.Space.FindObjectByName("Player").Transform.Translation.Z - this.PreviousPlayerPos.Z;
+            var newPosition = Real3(startPos.X + newVectorX, this.Owner.Transform.Translation.Y, startPos.Z + newVectorZ);
+            this.Owner.Transform.Translation.X = startPos.X + newVectorX;
+            this.Owner.Transform.Translation.Z = startPos.Z + newVectorZ;
+            this.Owner.Transform.Translation = newPosition;
+            Console.WriteLine(this.Owner.Transform.Translation);
+        }
+            var mouseScreenPosition = Zero.Mouse.ScreenPosition;
+            this.ScreenPos = this.Owner.Transform.Translation;
+            Console.WriteLine(this.ScreenPos);
+    // Convert the mouse position from screen coordinate to world coordinates
+    // use the main viewport for the level
+    var worldMousePosition = this.LevelSettings.CameraViewport.ScreenToWorldZPlane(mouseScreenPosition, 0);
+    Console.WriteLine(mouseScreenPosition);
+    if(mouseScreenPosition.X > 1500 && this.ScreenPos.X < 100 && this.Owner.CameraLock.Lock == false)
+    {
+        Console.WriteLine("YES");
+        var temp = this.Owner.Transform.Translation;
+        temp.X += 1;
+        this.Owner.Transform.Translation = temp;
+    }
+    if(mouseScreenPosition.X < 350 && this.ScreenPos.X > -100  && this.Owner.CameraLock.Lock == false)
+    {
+        Console.WriteLine("YES");
+        var temp = this.Owner.Transform.Translation;
+        temp.X -= 1;
+        this.Owner.Transform.Translation = temp;
+    }
+    if(mouseScreenPosition.Y < 100 && this.ScreenPos.Z > -10  && this.Owner.CameraLock.Lock == false)
+    {
+        Console.WriteLine("YES");
+        var temp = this.Owner.Transform.Translation;
+        temp.Z -= 1;
+        this.Owner.Transform.Translation = temp;
+    }
+    if(mouseScreenPosition.Y > 950 && this.ScreenPos.Z < 150  && this.Owner.CameraLock.Lock == false)
+    {
+        Console.WriteLine("YES");
+        var temp = this.Owner.Transform.Translation;
+        temp.Z += 1;
+        this.Owner.Transform.Translation = temp;
+    }
+    this.PreviousPlayerPos = this.Space.FindObjectByName("Player").Transform.Translation;
+    }
+}

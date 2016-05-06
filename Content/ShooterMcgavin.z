@@ -1,0 +1,40 @@
+class ShooterMcgavin : ZilchComponent
+{
+    [Property]var BulletDamage : Real = 5;
+    var BulletVelocity : Real3 = Real3(0,0,0);
+    var Bullet : Cog = null;
+    function Initialize(init : CogInitializer)
+    {
+        
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+        Zero.Connect(this.Space, Events.LeftMouseDown, this.OnMouseDown);
+        Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+    }
+    
+    function OnCollisionStarted(event : CollisionEvent)
+    {
+    }
+    
+    function OnMouseDown(event : ViewportMouseEvent)
+    {
+        var mousePos = event.ToWorldPlane(Real3(0,3,0), Real3(1,0,1));
+        mousePos.Y +=2;
+        var owner = this.Owner.Transform.Translation;
+        if(Zero.Mouse.IsButtonDown(MouseButtons.Left))
+        {
+            var spawPos = owner;
+            var archetypeToSpawn = Archetype.Find("Bullet");
+            this.Bullet = this.Space.CreateAtPosition(archetypeToSpawn, spawPos);
+            this.BulletVelocity = Math.Normalize(mousePos - owner) * 90;
+            this.Bullet.RigidBody.Velocity = this.BulletVelocity;
+        }
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        if(this.Bullet != null)
+        {
+        this.Bullet.RigidBody.Velocity.Y = 0;
+        }
+    }
+}

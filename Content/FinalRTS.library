@@ -1,0 +1,7 @@
+ContentLibrary = 
+{
+	string Name = "FinalRTS",
+	uint64 LibraryId = 56ce29093184191b,
+	string SourceControlType = "",
+	bool ReadOnly = false,
+},

@@ -1,0 +1,18 @@
+DataContent = 
+{
+	DataBuilder = 
+	{
+		string Name = "WoodSlats",
+		uint64 ResourceId = 531c2c1e9025149e,
+		string LoaderType = "Material",
+		uint Version = 0,
+		bool ShowInEditor = true,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"HighResTextures",
+		],
+	},
+},

@@ -1,0 +1,18 @@
+DataContent = 
+{
+	DataBuilder = 
+	{
+		string Name = "Zero",
+		uint64 ResourceId = 531c2c0d97cae719,
+		string LoaderType = "Material",
+		uint Version = 0,
+		bool ShowInEditor = true,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"HighResTextures",
+		],
+	},
+},

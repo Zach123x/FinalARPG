@@ -1,0 +1,18 @@
+DataContent = 
+{
+	DataBuilder = 
+	{
+		string Name = "Grate2",
+		uint64 ResourceId = 531c5028ae27b4c9,
+		string LoaderType = "Material",
+		uint Version = 0,
+		bool ShowInEditor = true,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"HighResTextures",
+		],
+	},
+},

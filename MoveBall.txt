@@ -1,0 +1,17 @@
+class MoveBall : ZilchComponent
+{
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+        Zero.Connect(this.Space, Events.RightMouseDown, this.OnRightMouseDown);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+    }
+    function OnRightMouseDown(event : ViewportMouseEvent)
+    {
+        var mousePos = event.ToWorldPlane(Real3(0,1,0), Real3(1,0,1));
+        this.Owner.Transform.Translation = mousePos;
+    }
+}

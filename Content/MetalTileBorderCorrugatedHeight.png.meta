@@ -1,0 +1,17 @@
+ImageContent = 
+{
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"HighResTextures",
+		],
+	},
+	HeightToNormalBuilder = 
+	{
+		NormalGeneration NormalSource = AverageRGB,
+		NormalFilter NormalFilter = n3x3,
+		float Bumpiness = 1,
+		bool StoreHeightInAlpha = false,
+	},
+},

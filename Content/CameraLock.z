@@ -1,0 +1,20 @@
+class CameraLock : ZilchComponent
+{
+    [Property]var Lock : Boolean = false;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        if(Zero.Keyboard.KeyIsPressed(Keys.Y) && this.Lock == false)
+        {
+            this.Lock = true;
+        }
+        else if(Zero.Keyboard.KeyIsPressed(Keys.Y))
+        {
+            this.Lock = false;
+        }
+    }
+}

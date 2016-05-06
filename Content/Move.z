@@ -1,0 +1,62 @@
+class Move : ZilchComponent
+{
+      [Property]
+  var PaceSpeed: Real = 5.0;
+    [Property]
+  var ChaseSpeed: Real = 5.0;
+  [Property]
+  var MaxMoveDistance: Real = 10.0;
+  var PaceDirection: Real3 = Real3(0.0, 1.0, 0.0);
+  var StartPosition: Real3 = Real3();
+  [Property]
+var TargetObject: CogPath = null;
+var ChaseTriggerDistance: Real = 300;
+var DistanceFromTarget: Real = 0.0;
+var ChaseDirection: Real3 = Real3();
+var TargetIsWithinRange: Boolean = true;
+
+
+// Dependencies
+[Dependency]
+var Transform: Transform = null;
+    function Initialize(init : CogInitializer)
+    {
+        // We need to update the enemy's behavior every logic update
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+          this.StartPosition = this.Owner.Transform.Translation;
+    }
+    function CalculateChaseDirectionAndDistance()
+{
+    // Get direction toward target
+    this.ChaseDirection = this.TargetObject.Cog.Transform.Translation - this.Owner.Transform.Translation;
+    // Extract distance by finding magnitude
+    this.DistanceFromTarget = Math.Length(this.ChaseDirection);
+    // Extract direction by normalizing
+    this.ChaseDirection = Math.Normalize(this.ChaseDirection);
+}
+function ChaseTarget()
+{
+    // Set Chase Color
+}
+    function OnLogicUpdate(event: UpdateEvent)
+    {
+        if(this.TargetIsWithinRange && this.DistanceFromTarget > 1)
+        {
+            Console.WriteLine("foo");
+        this.Owner.Transform.Translation += this.ChaseDirection * event.Dt * this.ChaseSpeed;
+        }
+        if (this.TargetObject.Cog != null)
+        {
+        // Calculate the direction and distance of target
+        this.CalculateChaseDirectionAndDistance();
+        // Evaluate whether Ai should chase or pace
+        this.TargetIsWithinRange = (this.DistanceFromTarget <= this.ChaseTriggerDistance);
+
+        if (this.TargetIsWithinRange)
+        {
+            // Chase target
+        this.ChaseTarget();
+        }
+        }
+    }   
+}
